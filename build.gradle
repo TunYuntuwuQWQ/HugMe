@@ -84,9 +84,6 @@ configurations {
 
 dependencies {
     implementation "dev.kosmx.player-anim:player-animation-lib-forge:1.0.2-rc1+1.21"
-
-//    implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${project.player_anim}")
-//    implementation 'dev.kosmx:player-animation-lib-forge:1.0.2-rc1+1.21'
 }
 
 tasks.withType(ProcessResources).configureEach {

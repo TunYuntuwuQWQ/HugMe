@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PBP",
+    "PIP",
+    "PBP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "B": {
+      "item": "minecraft:light_blue_dye"
+    },
+    "I": {
+      "item": "minecraft:pink_dye"
+    }
+  },
+  "result": {
+    "count": 4,
+    "id": "hugme:hug_ticket"
+  }
+}

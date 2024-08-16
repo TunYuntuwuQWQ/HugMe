@@ -1,0 +1,21 @@
+{
+  "hugme.message.sendrequest" : "%s 向你发起了拥抱请求! ",
+  "hugme.message.sendsuccess" : "你成功向 %s 发送了拥抱请求",
+  "hugme.message.acceptrequest": "[同意] ",
+  "hugme.message.rejectrequest": "[拒绝] ",
+  "hugme.message.sender_accepted": "%s 接受了你的拥抱请求!",
+  "hugme.message.receiver_accepted": "你接受了来自 %s 的拥抱请求!",
+  "hugme.message.sender_rejected": "%s 拒绝了你的拥抱请求.",
+  "hugme.message.receiver_rejected": "你拒绝了来自 %s 的拥抱请求.",
+  "hugme.message.sendernotfound": "找不到发送者!",
+  "hugme.networking.failed": "HugMe: 网络连接失败 %s",
+  "hugme.message.too_far": "你距离 %s 太远了! [>5]",
+  "hugme.message.invalid_level" : "你与 %s 不在同一个世界",
+  "hugme.message.request_expired" : "关于 %s 的拥抱请求已经过期",
+  "hugme.message.have_request" : "你已经向他发送了一个拥抱请求",
+  "hugme.message.invalid_request" : "无效的拥抱请求",
+  "hugme.message.hug_in_progress_sender" : "%s 正在拥抱中,无法接受你的请求",
+  "hugme.message.hug_in_progress_receiver" : "你正在拥抱中,无法接受 %s 的请求",
+  "item.hugme.hug_ticket" : "抱抱券",
+  "item.hugme.hug_ticket.desc" : "用我右键你的朋友,对他发起拥抱请求吧！"
+}

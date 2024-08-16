@@ -1,0 +1,21 @@
+{
+  "hugme.message.sendrequest" : "%s sent a hug request to you! ",
+  "hugme.message.sendsuccess" : "You successfully sent %s a hug request",
+  "hugme.message.acceptrequest" : "[Accept] ",
+  "hugme.message.rejectrequest" : "[Reject] ",
+  "hugme.message.sender_accepted" : "%s accepted your hug request!",
+  "hugme.message.receiver_accepted" : "You accepted a hug request from %s!",
+  "hugme.message.sender_rejected" : "%s rejected your hug request.",
+  "hugme.message.receiver_rejected" : "You rejected a hug request from %s.",
+  "hugme.message.sendernotfound": "Sender not found!",
+  "hugme.networking.failed" : "HugMe: networking failed %s",
+  "hugme.message.too_far" : "You're too far away from %s ! [>5]",
+  "hugme.message.invalid_level" : "You and %s are not in the same world",
+  "hugme.message.request_expired" : "The hug request about %s has expired",
+  "hugme.message.have_request" : "You already sent him a request",
+  "hugme.message.invalid_request" : "Invalid hug request",
+  "hugme.message.hug_in_progress_sender" : "%s is in a hug and cannot accept your request",
+  "hugme.message.hug_in_progress_receiver" : "You are in a hug, unable to accept a hug request from %s",
+  "item.hugme.hug_ticket" : "Hug Ticket",
+  "item.hugme.hug_ticket.desc" : "Use me to right click on your friend and send a hug request to him!"
+}

@@ -131,8 +131,9 @@ public class HugCommandHandler {
         HugStatus status = new HugStatus(sender.getUUID(), receiver.getUUID(), sender.position(), receiver.position(), true, AnimTick, nearbyPlayers);
         hugStatuses.put(new Pair<>(sender.getUUID(), receiver.getUUID()), status);
 
+        int enumNumber = new Random().nextInt(HugAnimationEnum.values().length);
         for (ServerPlayer serverPlayer : nearbyPlayers) {
-            PacketDistributor.sendToPlayer(serverPlayer, new HugRenderPayload(sender.getStringUUID(), receiver.getStringUUID(), false, new Random().nextInt(HugAnimationEnum.values().length)));
+            PacketDistributor.sendToPlayer(serverPlayer, new HugRenderPayload(sender.getStringUUID(), receiver.getStringUUID(), false, enumNumber));
         }
     }
 

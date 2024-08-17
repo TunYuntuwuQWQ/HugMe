@@ -1,6 +1,6 @@
 package nya.tuyw.hugme.animation;
 public enum HugAnimationEnum {
     NORMALHUG,
-    FLYHUG,
+//    FLYHUG,
     TOUCHHEADHUG
 }

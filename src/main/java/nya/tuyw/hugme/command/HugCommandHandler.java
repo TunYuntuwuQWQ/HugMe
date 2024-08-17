@@ -178,6 +178,8 @@ public class HugCommandHandler {
         if (sender != null && receiver != null) {
             sender.teleportTo(status.getSenderPos().x,status.getSenderPos().y,status.getSenderPos().z);
             receiver.teleportTo(status.getReceiverPos().x,status.getReceiverPos().y,status.getReceiverPos().z);
+        }else {
+            hugStatuses.remove(new Pair<>(status.getSenderId(), status.getReceiverId()));
         }
     }
     private static void endHug(HugStatus status) {

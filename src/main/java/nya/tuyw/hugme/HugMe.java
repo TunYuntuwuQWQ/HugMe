@@ -1,20 +1,29 @@
 package nya.tuyw.hugme;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.LevelResource;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import nya.tuyw.hugme.command.HugCommandHandler;
 import nya.tuyw.hugme.item.HugTicketItem;
 import org.slf4j.Logger;
+
+import java.io.File;
 
 @Mod(HugMe.MODID)
 public class HugMe {
@@ -38,5 +47,19 @@ public class HugMe {
     @SubscribeEvent
     private void onServerStarting(ServerStartingEvent event) {
         HugCommandHandler.register(event.getServer().getCommands().getDispatcher());
+    }
+
+    @SubscribeEvent
+    public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            if (ServerLifecycleHooks.getCurrentServer() == null) return;
+            File playerDataFile = new File(ServerLifecycleHooks.getCurrentServer().getWorldPath(LevelResource.PLAYER_DATA_DIR).toFile(), player.getUUID() + ".dat");
+            if (!playerDataFile.exists()) {
+                ItemStack itemStack = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("hugme","hug_ticket")),16);
+                if (!player.getInventory().add(itemStack)) {
+                    player.drop(itemStack, false);
+                }
+            }
+        }
     }
 }

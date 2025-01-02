@@ -83,7 +83,7 @@ configurations {
 }
 
 dependencies {
-    implementation "dev.kosmx.player-anim:player-animation-lib-forge:1.0.2-rc1+1.21"
+    implementation "dev.kosmx.player-anim:player-animation-lib-forge:2.0.0+1.21.1"
 }
 
 tasks.withType(ProcessResources).configureEach {

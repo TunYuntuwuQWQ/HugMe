@@ -11,6 +11,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -92,8 +94,6 @@ public class HugCommandHandler {
                 receiver.sendSystemMessage(Component.translatable("hugme.message.hug_in_progress_receiver",sender.getName().getString()).withStyle(ChatFormatting.RED));
                 return;
             }
-            sender.sendSystemMessage(Component.translatable("hugme.message.sender_accepted", receiver.getName().getString()).withStyle(ChatFormatting.GREEN));
-            receiver.sendSystemMessage(Component.translatable("hugme.message.receiver_accepted", sender.getName().getString()).withStyle(ChatFormatting.GREEN));
 
             if (sender.serverLevel() != receiver.serverLevel()) {
                 receiver.sendSystemMessage(Component.translatable("hugme.message.invalid_level", sender.getName().getString()).withStyle(ChatFormatting.RED));
@@ -104,16 +104,29 @@ public class HugCommandHandler {
                 return;
             }
 
-            sender.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(receiver.getX(), receiver.getEyeY(), receiver.getZ()));
+            sender.sendSystemMessage(Component.translatable("hugme.message.sender_accepted", receiver.getName().getString()).withStyle(ChatFormatting.GREEN));
+            receiver.sendSystemMessage(Component.translatable("hugme.message.receiver_accepted", sender.getName().getString()).withStyle(ChatFormatting.GREEN));
 
-            Vec3 senderLookVec = sender.getLookAngle();
-            double horizontalDistance = Math.sqrt(senderLookVec.x * senderLookVec.x + senderLookVec.z * senderLookVec.z);
-            double offsetX = (senderLookVec.x / horizontalDistance) * 1.3;
-            double offsetZ = (senderLookVec.z / horizontalDistance) * 1.3;
+            Vec3 senderVec = sender.position().subtract(receiver.position());
+
+            double horizontalDistance = Math.sqrt(senderVec.x * senderVec.x + senderVec.z * senderVec.z);
+            double offsetX = (senderVec.x / horizontalDistance) * 1.3;
+            double offsetZ = (senderVec.z / horizontalDistance) * 1.3;
 
             double receiverX = sender.getX() + offsetX;
             double receiverY = sender.getY();
             double receiverZ = sender.getZ() + offsetZ;
+
+            /**
+             * @author Louis_Quepierts
+             * @reason Fixed an issue where players would accept invitations in the wrong place
+             */
+            Vec3 standPosition = new Vec3(receiverX,receiverY,receiverZ);
+            if (!isPositionSafe(standPosition, sender.level())) {
+                receiver.sendSystemMessage(Component.translatable("hugme.message.unsafe_position", sender.getName().getString()).withStyle(ChatFormatting.RED));
+                return;
+            }
+
 
             receiver.teleportTo(receiverX, receiverY, receiverZ);
             receiver.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(sender.getX(), sender.getEyeY(), sender.getZ()));
@@ -124,6 +137,26 @@ public class HugCommandHandler {
         } else {
             receiver.sendSystemMessage(Component.translatable("hugme.message.invalid_request").withStyle(ChatFormatting.RED));
         }
+    }
+
+    /**
+     * @author Louis_Quepierts
+     * @reason Fixed an issue where players would accept invitations in the wrong place
+     */
+    private static boolean isPositionSafe(Vec3 vec3, Level level){
+        return canPositionStand(vec3,level,0.1f) && canPositionPass(vec3,level);
+    }
+    private static boolean canPositionStand(Vec3 vec3, Level level, float down){
+        AABB box = new AABB(
+                vec3.x - 0.3f, vec3.y - down, vec3.z - 0.3f,
+                vec3.x + 0.3f, vec3.y, vec3.z + 0.3f);
+        return level.getBlockCollisions(null,box).iterator().hasNext();
+    }
+    private static boolean canPositionPass(Vec3 vec3, Level level){
+        AABB box = new AABB(
+                vec3.x - 0.3f, vec3.y + 0.1f, vec3.z - 0.3f,
+                vec3.x + 0.3f, vec3.y + 1.7f, vec3.z + 0.3f);
+        return !level.getBlockCollisions(null, box).iterator().hasNext();
     }
 
     private static void sendRenderInfoToNearbyPlayers(ServerPlayer sender, ServerPlayer receiver) {

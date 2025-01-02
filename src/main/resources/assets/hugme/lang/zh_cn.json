@@ -11,6 +11,7 @@
   "hugme.networking.failed": "HugMe: 网络连接失败 %s",
   "hugme.message.too_far": "你距离 %s 太远了! [>5]",
   "hugme.message.invalid_level" : "你与 %s 不在同一个世界",
+  "hugme.message.unsafe_position" : "%s前的区域无法站立!",
   "hugme.message.request_expired" : "关于 %s 的拥抱请求已经过期",
   "hugme.message.have_request" : "你已经向他发送了一个拥抱请求",
   "hugme.message.invalid_request" : "无效的拥抱请求",

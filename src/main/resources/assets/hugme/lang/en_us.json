@@ -11,6 +11,7 @@
   "hugme.networking.failed" : "HugMe: networking failed %s",
   "hugme.message.too_far" : "You're too far away from %s ! [>5]",
   "hugme.message.invalid_level" : "You and %s are not in the same world",
+  "hugme.message.unsafe_position" : "The area in front of %s is not able to stand",
   "hugme.message.request_expired" : "The hug request about %s has expired",
   "hugme.message.have_request" : "You already sent him a request",
   "hugme.message.invalid_request" : "Invalid hug request",

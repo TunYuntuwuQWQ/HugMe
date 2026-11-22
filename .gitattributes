@@ -1,0 +1,6 @@
+# 跨平台换行一致：gradlew 必须是 LF，否则 Linux/macOS 上无法执行
+* text=auto
+gradlew text eol=lf
+*.bat text eol=crlf
+*.jar binary
+*.png binary

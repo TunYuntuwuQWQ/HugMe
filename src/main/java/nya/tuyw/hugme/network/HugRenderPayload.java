@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import nya.tuyw.hugme.HugMe;
 import org.jetbrains.annotations.NotNull;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD,modid = HugMe.MODID)
+@EventBusSubscriber(modid = HugMe.MODID)
 public record HugRenderPayload(String sender, String receiver, boolean isdone, int animationEnum) implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<HugRenderPayload> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath("hugme", "render_hug"));

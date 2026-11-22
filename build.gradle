@@ -3,7 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '1.0.14'
+    id 'net.neoforged.moddev' version '2.0.148'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -13,22 +13,22 @@ tasks.named('wrapper', Wrapper).configure {
 version = mod_version
 group = mod_group_id
 
-repositories {
-    mavenLocal()
-    maven {
-        name "KosmX's maven"
-        url 'https://maven.kosmx.dev/'
-        content {
-            includeGroup("dev.kosmx.player-anim")
-        }
-    }
-}
-
 base {
     archivesName = "HugMe!-NeoForge-$minecraft_version"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+repositories {
+    mavenLocal()
+    maven {
+        name = "KosmX's maven"
+        url = 'https://maven.kosmx.dev/'
+        content {
+            includeGroup 'dev.kosmx.player-anim'
+        }
+    }
+}
 
 neoForge {
     version = project.neo_version
@@ -41,7 +41,6 @@ neoForge {
     runs {
         client {
             client()
-
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
@@ -58,13 +57,11 @@ neoForge {
 
         data {
             data()
-
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
 
         configureEach {
             systemProperty 'forge.logging.markers', 'REGISTRIES'
-
             logLevel = org.slf4j.event.Level.DEBUG
         }
     }
@@ -83,7 +80,8 @@ configurations {
 }
 
 dependencies {
-    implementation "dev.kosmx.player-anim:player-animation-lib-forge:2.0.0+1.21.1"
+    // 动画库：编译期 + 运行时都需要，版本见 gradle.properties
+    implementation "dev.kosmx.player-anim:player-animation-lib-forge:${player_animation_version}"
 }
 
 tasks.withType(ProcessResources).configureEach {
@@ -103,6 +101,22 @@ tasks.withType(ProcessResources).configureEach {
     inputs.properties replaceProperties
     filesMatching(['META-INF/neoforge.mods.toml']) {
         expand replaceProperties
+    }
+}
+
+// 构建产物里带上版本与版权信息（Modrinth/CurseForge 上传后仍可从 jar 里读到出处）
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes([
+                'Specification-Title'     : mod_id,
+                'Specification-Vendor'    : mod_authors,
+                'Specification-Version'   : '1',
+                'Implementation-Title'    : mod_name,
+                'Implementation-Version'  : project.version,
+                'Implementation-Vendor'   : mod_authors,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'Copyright'               : 'Copyright (c) 2024 TunYuntuwuQWQ, 2026 skyofsimba',
+        ])
     }
 }
 

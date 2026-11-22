@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-@EventBusSubscriber(modid = HugMe.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = HugMe.MODID)
 public class HugCommandHandler {
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final long REQUEST_TIMEOUT_S = 60;

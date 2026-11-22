@@ -18,7 +18,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import nya.tuyw.hugme.HugMe;
 
-@EventBusSubscriber(modid = HugMe.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = HugMe.MODID, value = Dist.CLIENT)
 public class AnimationManager {
 
     @SubscribeEvent

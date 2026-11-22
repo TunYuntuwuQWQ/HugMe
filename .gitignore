@@ -16,11 +16,15 @@ out
 # gradle
 build
 .gradle
+repo
 
-# other
-eclipse
+# 运行目录（runClient / runServer / runData 生成）
 run
 runs
 run-data
+logs
 
-repo
+# 其他
+eclipse
+*.hprof
+.DS_Store

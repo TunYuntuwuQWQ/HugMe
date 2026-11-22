@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@EventBusSubscriber(modid = HugMe.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = HugMe.MODID, value = Dist.CLIENT)
 public class RenderPlayerEventHandler {
     private static final Minecraft client = Minecraft.getInstance();
     private static final Map<UUID, Pair<UUID,Boolean>> playerLockMap = new HashMap<>();
